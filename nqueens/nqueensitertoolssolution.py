@@ -8,14 +8,10 @@ def boardmaker(self):
     solutions = []
     how_many_times = 0
 
-    all_possibilities = []
     row_index_generator = permutations(list(range(self)))
 
     for generation in row_index_generator:
-        columns = list(generation)
-        all_possibilities.append(columns)
-
-    for possibility in all_possibilities:
+        possibility = list(generation)
         how_many_times +=1
         rows = []
         counter = 0
