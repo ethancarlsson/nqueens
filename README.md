@@ -1,30 +1,51 @@
 # nqueens
 My nqueens solution
 
-These are few programs that solve the nqueens problem in python. 
+These are few programs that solve the nqueens problem in python. I have been working on them since I started learning to program and they show my progress in a number of ways. I will explain each solution below as well as their strengths and weaknesses. 
 
 <h2> nqueensrandomsolution </h2>
-The first uses the random module to solve the problem and because of this it technically could solve the problem for any sized board immediately. However, it could also technically run fro an infinite amount of time for even the smallest board sizes.
-
-<h2> nqueensitertoolssolution </h2>
-The second uses permutations from the itertools module to find all possible solutions.
-
-It uses a list with every number in range n; the number will represent a column to place the queen in and the position of the number will represent a row to place the queen in. This prevents the need to check for collisions along columns or rows. 
-
-It will then create all permutations of this list, place it on the board and check for collisions along the diagonals. Because it has to create and check every possible board it has a higher than linear time complexity
-
-<h2> solution_producer </h2>
-This program doesn't solve the problem itself. Instead it creates a program that can solve the problem, it has the same structure as the itertoolssolution, but it is a lot faster. It does the following: 
+<p>
+This was my very first attempt to solve the problem the program will find the solution by randomly placing the queens and then checking to see if they connect on the diagonals.
+</p>
+<p>
+You can tell I was still new to programming (I didn't really know what "self" meant so i just stuck it in the function because thats what they do in the tutorials), but it set the stage for how I began solving the problems in later iterations. The most relevant success I had here was that I made the board a 2d list in which each column was represented by an integer: 
+  </P
+<code>
+  [         
+    [0, 1, 2, 3, 4, 5, 6, 7],
+    [0, 1, 2, 3, 4, 5, 6, 7],
+    [0, 1, 2, 3, 4, 5, 6, 7],
+    [0, 1, 2, 3, 4, 5, 6, 7],
+    [0, 1, 2, 3, 4, 5, 6, 7],
+    [0, 1, 2, 3, 4, 5, 6, 7],
+    [0, 1, 2, 3, 4, 5, 6, 7],
+    [0, 1, 2, 3, 4, 5, 6, 7],
+  ]
+</code>
+<p>
+This isn't groundbreaking but it meant I could create a list and randomly shuffle it to decide where the queens should be placed based on their position on the list rather than placing them on each individual list within the 2d array: 
+ </p>
+ <p>
+<code>
+      row_index_storage = list(range(self))
+      random.shuffle(row_index_storage)
+</code>
+  </p>
+<p>
+  This meant that I only needed to check for colisions along the diagonal and not the columns.
+</p>
+<h3> Strengths </h3>
 <ul>
-  <li> it calls upon the <b>condition_producer</b>; the condition_producer creates a series of text files containing an if statement. The if statement contains all possible collisions within an n sized list.</li>
-   <li> It then appends all of these if statements after each permutation of the queen list. 
-The produced program does not need to check for collisions and queens will only be placed on the board when it is already certain that there will be no collisions. Because of this it is much faster than the other solutions. It still has a roughly linear time complexity because it still needs to generate every permutation. </li>
-</li>
-</ul>
-To use this solution you need to first run the solution producer and then run the produced solution program. 
-
-<h2> solution_producer_withlistcomp </h2> 
-This is the same as the solution_producer but it uses list comprehensions to speed everything up. 
-
-<h2> How to make it faster </h2> 
-All of the time that the program takes is related to the speed of producing permutations. Finding ways to speed up the permutations will be the best way to improve the speed of the program. 
+  <li>
+    Can potentially solve any size board immediately through random luck.
+  </li>
+ </ul>
+<h3> Weaknesses </h3>
+<ul>
+  <li>
+    Can potentially never solve even the smallest boards, and in practice it is very unlikely to succesfully find solutions on larger boards. 
+  </li>
+  <li>
+    Only finds one solution and there is no way to tell if you have found all possible solutions for an n sized board. 
+  </li>
+ </ul>
